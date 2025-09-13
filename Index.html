@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>¡Feliz Cumpleaños María!</title>
+    <script src="https://unpkg.com/lucide@latest/dist/lucide.min.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+
+        .animate-bounce {
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-20px);
+            }
+        }
+
+        .animate-pulse {
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                opacity: 1;
+            }
+            50% {
+                opacity: 0.5;
+            }
+        }
+
+        .transition-all {
+            transition: all 0.3s ease;
+        }
+
+        .transform {
+            transform: scale(1);
+        }
+
+        .hover\:scale-105:hover {
+            transform: scale(1.05);
+        }
+
+        /* Animación para globos que suben */
+        @keyframes floatUp {
+            0% {
+                transform: translateY(100vh);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-10vh);
+                opacity: 0;
+            }
+        }
+
+        .balloon {
+            position: absolute;
+            font-size: 2rem;
+            animation-name: floatUp;
+            animation-timing-function: ease-out;
+            animation-iteration-count: 1;
+        }
+
+        /* Nuevo estilo para el círculo con imagen */
+        .circle-image {
+            width: 6rem; /* 24 * 0.25rem = 6rem */
+            height: 6rem;
+            margin: 0 auto 1.5rem auto;
+            border-radius: 9999px; /* rounded-full */
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            box-shadow: 0 10px 15px -3px rgba(139, 92, 246, 0.5), 0 4px 6px -2px rgba(139, 92, 246, 0.3);
+        }
+    </style>
+</head>
+<body class="min-h-screen bg-gradient-to-b from-pink-50 to-purple-100">
+    <div id="balloon-effect" class="fixed inset-0 z-50 pointer-events-none hidden">
+        <!-- Globos se generarán con JavaScript -->
+    </div>
+
+    <header class="text-center py-8 px-4">
+        <div class="max-w-4xl mx-auto">
+            <h1 class="text-4xl md:text-6xl font-bold text-purple-800 mb-4">
+                ¡Feliz Cumpleaños!
+            </h1>
+            <div class="flex justify-center items-center gap-2 mb-6">
+                <i data-lucide="sparkles" class="text-yellow-500 animate-pulse" style="width: 32px; height: 32px;"></i>
+                <h2 class="text-2xl md:text-3xl font-semibold text-pink-600">
+                    María
+                </h2>
+                <i data-lucide="sparkles" class="text-yellow-500 animate-pulse" style="width: 32px; height: 32px;"></i>
+            </div>
+        </div>
+    </header>
+
+    <main class="px-4 pb-16">
+        <section class="max-w-2xl mx-auto text-center mb-12">
+            <div class="bg-white rounded-2xl p-8 shadow-lg border border-pink-200">
+                <!-- Aquí está el círculo con imagen -->
+                <div 
+                    class="circle-image"
+                    style="background-image: url('/IMG4.jfif');"
+                    aria-label="Imagen decorativa de cumpleaños"
+                    role="img"
+                ></div>
+                <!-- El ícono cake se elimina porque la imagen lo reemplaza -->
+
+                <p class="text-lg md:text-xl text-gray-700 leading-relaxed mb-6">
+                    Hoy (ayer) cumples un día más (cada vez más viejita)
+                </p>
+                <p class="text-lg md:text-xl text-gray-700 leading-relaxed mb-6">
+                    Que te vaya bien en cálculo/ecuaciones en este nuevo año jijiji
+                </p>
+                <button
+                    onclick="triggerBalloonEffect()"
+                    class="bg-gradient-to-r from-pink-500 to-purple-600 text-white px-8 py-3 rounded-full font-semibold hover:from-pink-600 hover:to-purple-700 transition-all transform hover:scale-105 shadow-lg"
+                >
+                    <i data-lucide="sparkles" style="width: 20px; height: 20px; display: inline; margin-right: 0.5rem;"></i>
+                    ¡Celebrar!
+                </button>
+            </div>
+        </section>
+
+        <section class="max-w-4xl mx-auto mb-12">
+            <div class="text-center mb-8">
+                <h3 class="text-2xl md:text-3xl font-semibold text-purple-800 mb-4">
+                    Recuerdos
+                </h3>
+                <button
+                    onclick="togglePhotoGallery()"
+                    class="flex items-center justify-center mx-auto gap-2 text-pink-600 hover:text-pink-700 font-medium"
+                >
+                    <i data-lucide="camera" style="width: 20px; height: 20px;"></i>
+                    <span id="gallery-toggle-text">Ver fotos</span>
+                </button>
+            </div>
+
+            <div id="photo-gallery" class="hidden grid grid-cols-1 md:grid-cols-3 gap-6 mt-6">
+                <div class="bg-white rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-shadow">
+                    <img 
+                        src="/IMG2.jfif" 
+                        alt="Foto feliz de María sonriendo con un paisaje primaveral de fondo"
+                        class="w-full h-48 object-cover"
+                    />
+                    <div class="p-4">
+                        <p class="text-sm text-gray-600">HBD</p>
+                    </div>
+                </div>
+                
+                <div class="bg-white rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-shadow">
+                    <img 
+                        src="/IMG1.jfif" 
+                        alt="María celebrando con amigos en una reunión especial"
+                        class="w-full h-48 object-cover"
+                    />
+                    <div class="p-4">
+                        <p class="text-sm text-gray-600">Feliz cumple</p>
+                    </div>
+                </div>
+                
+                <div class="bg-white rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-shadow">
+                    <img 
+                        src="/IMG3.jfif" 
+                        alt="Primer plano de María con un vestido colorido y expresión alegre"
+                        class="w-full h-48 object-cover"
+                    />
+                    <div class="p-4">
+                        <p class="text-sm text-gray-600">HBD</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="max-w-4xl mx-auto mb-12">
+            <h3 class="text-2xl md:text-3xl font-semibold text-purple-800 text-center mb-8">
+                Mensajes míos
+            </h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="bg-white p-6 rounded-xl border border-pink-200 shadow-sm">
+                    <div class="flex items-center mb-4">
+                        <div class="w-10 h-10 bg-pink-100 rounded-full flex items-center justify-center">
+                            <i data-lucide="heart" class="text-pink-500" style="width: 20px; height: 20px;"></i>
+                        </div>
+                        <h4 class="ml-3 font-semibold text-purple-800">De mí :p</h4>
+                    </div>
+                    <p class="text-gray-700">
+                        "Holap, eres una de las mejores amigas que alguien podría desear. 
+                        ¡Ten un día tan especial como tú!"
+                    </p>
+                </div>
+
+                <div class="bg-white p-6 rounded-xl border border-pink-200 shadow-sm">
+                    <div class="flex items-center mb-4">
+                        <div class="w-10 h-10 bg-purple-100 rounded-full flex items-center justify-center">
+                            <i data-lucide="gift" class="text-purple-500" style="width: 20px; height: 20px;"></i>
+                        </div>
+                        <h4 class="ml-3 font-semibold text-purple-800">De mi tmb</h4>
+                    </div>
+                    <p class="text-gray-700">
+                        "Feliz cumpleaños"
+                    </p>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-purple-800 text-white text-center py-8">
+        <div class="max-w-4xl mx-auto px-4">
+            <p class="text-lg mb-4">Con mucho cariño en tu día especial</p>
+            <div class="flex justify-center gap-4 mb-4">
+                <div class="animate-bounce">🎂</div>
+                <div class="animate-bounce" style="animation-delay: 0.2s;">🎁</div>
+                <div class="animate-bounce" style="animation-delay: 0.4s;">🎈</div>
+            </div>
+            <p class="text-sm opacity-80">¡Que todos tus deseos se hagan realidad!</p>
+        </div>
+    </footer>
+
+    <script>
+        // Inicializar iconos de Lucide
+        lucide.createIcons();
+
+        // Función para el efecto de globos que suben
+        function triggerBalloonEffect() {
+            const balloonContainer = document.getElementById('balloon-effect');
+            balloonContainer.classList.remove('hidden');
+            balloonContainer.innerHTML = '';
+
+            for (let i = 0; i < 30; i++) {
+                const balloon = document.createElement('div');
+                balloon.className = 'balloon';
+                balloon.textContent = '🎈';
+                balloon.style.left = `${Math.random() * 100}%`;
+                balloon.style.fontSize = `${16 + Math.random() * 24}px`;
+                balloon.style.animationDuration = `${3 + Math.random() * 3}s`;
+                balloon.style.animationDelay = `${Math.random() * 2}s`;
+                balloonContainer.appendChild(balloon);
+            }
+
+            // Ocultar después de 6 segundos (para que termine la animación)
+            setTimeout(() => {
+                balloonContainer.classList.add('hidden');
+                balloonContainer.innerHTML = '';
+            }, 6000);
+        }
+
+        // Función para mostrar/ocultar galería de fotos
+        function togglePhotoGallery() {
+            const gallery = document.getElementById('photo-gallery');
+            const toggleText = document.getElementById('gallery-toggle-text');
+
+            if (gallery.classList.contains('hidden')) {
+                gallery.classList.remove('hidden');
+                toggleText.textContent = 'Ocultar fotos';
+            } else {
+                gallery.classList.add('hidden');
+                toggleText.textContent = 'Ver fotos';
+            }
+        }
+    </script>
+</body>
+</html>
